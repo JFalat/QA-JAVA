@@ -44,7 +44,7 @@ public class ContactCreationTest {
     public void ContactCreationTest() {
 
     goToContactPage();
-    fillContactForm("Joanna", "test1", "joanna@test1.com");
+    fillContactForm("Joanna", "test1", "joanna@test1.com", "12345678");
     submitContact();
     logout();
   }
@@ -57,13 +57,16 @@ public class ContactCreationTest {
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
-  private void fillContactForm(String firstname, String middlename, String email) {
+  private void fillContactForm(String firstname, String middlename, String email, String homephone) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys(firstname);
     wd.findElement(By.name("middlename")).click();
     wd.findElement(By.name("middlename")).clear();
     wd.findElement(By.name("middlename")).sendKeys(middlename);
+    wd.findElement(By.name("home")).click();
+    wd.findElement(By.name("home")).clear();
+    wd.findElement(By.name("home")).sendKeys(homephone);
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
