@@ -1,5 +1,6 @@
-package com.qatraining.addressbook;
+package com.qatraining.addressbook.tests;
 
+import com.qatraining.addressbook.model.GroupDataContact;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -12,7 +13,7 @@ import org.openqa.selenium.*;
 
 public class ContactCreationTest {
     FirefoxDriver wd;
-    
+
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
             wd.switchTo().alert();
