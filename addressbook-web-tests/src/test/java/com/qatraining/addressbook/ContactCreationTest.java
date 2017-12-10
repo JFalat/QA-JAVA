@@ -4,16 +4,11 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 import java.util.concurrent.TimeUnit;
-import java.util.Date;
-import java.io.File;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.interactions.Actions;
+
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
-import static org.openqa.selenium.OutputType.*;
 
 public class ContactCreationTest {
     FirefoxDriver wd;
@@ -49,7 +44,7 @@ public class ContactCreationTest {
     public void ContactCreationTest() {
 
     goToContactPage();
-    fillContactForm();
+    fillContactForm("Joanna", "test1", "joanna@test1.com");
     submitContact();
     logout();
   }
@@ -62,17 +57,17 @@ public class ContactCreationTest {
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
-  private void fillContactForm() {
+  private void fillContactForm(String firstname, String middlename, String email) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys("Joanna");
+    wd.findElement(By.name("firstname")).sendKeys(firstname);
     wd.findElement(By.name("middlename")).click();
     wd.findElement(By.name("middlename")).clear();
-    wd.findElement(By.name("middlename")).sendKeys("test1");
+    wd.findElement(By.name("middlename")).sendKeys(middlename);
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys("joanna@test1.com");
+    wd.findElement(By.name("email")).sendKeys(email);
   }
 
   private void goToContactPage() {
