@@ -3,6 +3,7 @@ package com.qatraining.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
+//import java.util.concurrent.TimeUnit;
 
 public class HelperBase {
   protected FirefoxDriver wd;
@@ -28,5 +29,15 @@ public class HelperBase {
     } catch (NoAlertPresentException e) {
       return false;
     }
+
   }
+
+//  It's needed for testing my code
+//  public void testWait()  {
+//    try {
+//      Thread.sleep(5000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//  }
 }
