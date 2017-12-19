@@ -2,12 +2,12 @@ package com.qatraining.addressbook.appmanager;
 
 import com.qatraining.addressbook.model.GroupData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class GroupHelper extends HelperBase{
 
-  public GroupHelper (FirefoxDriver wd) {
+  public GroupHelper (WebDriver wd) {
     super(wd);
   }
 
