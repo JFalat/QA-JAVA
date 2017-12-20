@@ -2,7 +2,10 @@ package com.qatraining.addressbook.appmanager;
 
 import com.qatraining.addressbook.model.GroupDataContact;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 
 public class ContactHelper extends HelperBase {
@@ -12,13 +15,18 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void fillContactForm(GroupDataContact groupDataContact) {
+  public void fillContactForm(GroupDataContact groupDataContact, boolean cretaion) {
     type(By.name("firstname"), groupDataContact.getFirstname());
     type(By.name("middlename"), groupDataContact.getMiddlename());
     type(By.name("home"), groupDataContact.getHomephone());
     type(By.name("email"), groupDataContact.getEmail());
-  }
 
+    if(cretaion){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(groupDataContact.getGroup());
+    }else{
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+  }
   public void submitContact() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
