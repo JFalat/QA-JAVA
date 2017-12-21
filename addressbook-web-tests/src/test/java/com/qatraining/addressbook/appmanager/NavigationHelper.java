@@ -23,9 +23,6 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-//  public void returnToHomePage() {
-//    click(By.xpath("//*[@id=\"nav\"]/ul/li[1]/a"));
-//  }
 
   public void gotoHomePage(){
     if (isElementPresent(By.id("maintable"))) {

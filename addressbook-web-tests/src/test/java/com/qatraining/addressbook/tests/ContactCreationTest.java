@@ -1,6 +1,6 @@
 package com.qatraining.addressbook.tests;
 
-import com.qatraining.addressbook.model.GroupDataContact;
+import com.qatraining.addressbook.model.ContactData;
 import org.testng.annotations.Test;
 
 public class ContactCreationTest extends TestBase {
@@ -9,11 +9,9 @@ public class ContactCreationTest extends TestBase {
   @Test
   public void testContactCreation() {
 
-    app.getNavigationHelper().goToContactPage();
-    app.getContactHelper().fillContactForm(new GroupDataContact("Joanna", "test1", "joanna@test1.com", "12345678","test1"),true);
-    app.getContactHelper().submitContact();
     app.getNavigationHelper().gotoHomePage();
-    app.getSessionHelper().logout();
+    app.getContactHelper().createClient(new ContactData("Joanna", null, null, null,"test1"));
+
   }
 
 }

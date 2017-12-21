@@ -1,13 +1,13 @@
 package com.qatraining.addressbook.model;
 
-public class GroupDataContact {
+public class ContactData {
   private final String firstname;
   private final String middlename;
   private final String email;
   private final String homephone;
   private String group;
 
-  public GroupDataContact(String firstname, String middlename, String email, String homephone, String group) {
+  public ContactData(String firstname, String middlename, String email, String homephone, String group) {
     this.firstname = firstname;
     this.middlename = middlename;
     this.email = email;

@@ -19,17 +19,17 @@ public class ApplicationManager {
   private ContactHelper contactHelper;
   private String browser;
 
-  public ApplicationManager (String browser){
-    this.browser=browser;
+  public ApplicationManager(String browser) {
+    this.browser = browser;
   }
 
   public void init() {
-    if (browser.equals(BrowserType.FIREFOX)){
+    if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
     } else if (browser.equals(BrowserType.CHROME)) {
       wd = new ChromeDriver();
-    }else if (browser.equals(BrowserType.IE)){
-      wd= new InternetExplorerDriver();
+    } else if (browser.equals(BrowserType.IE)) {
+      wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
