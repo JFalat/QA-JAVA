@@ -42,12 +42,12 @@ public class HelperBase {
   }
 
   protected boolean isElementPresent(By locator) {
-  try {
-    wd.findElement(locator);
-    return true;
-  } catch (NoSuchElementException ex) {
-    return false;
-  }
+    try {
+      wd.findElement(locator);
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
   }
 
 //  It's needed for testing my code

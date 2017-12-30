@@ -14,6 +14,7 @@ public class PointTests {
 //    positive test
     assert point1.distanceToPoint(point2) == 2.8284271247461903;
 
+
 //    negative test with ng information
 //    Assert.assertEquals(point1.distanceToPoint(point2), 3.8284271247461903);
   }
