@@ -1,40 +1,47 @@
 package com.qatraining.addressbook.model;
 
 public class ContactData {
-  private int id;
-  private final String firstname;
-  private final String lastName;
-  private final String email;
-  private final String homephone;
+  private int id= Integer.MAX_VALUE;
+  private String firstname;
+  private String lastName;
+  private String email;
+  private String homephone;
   private String group;
 
 
-  public ContactData(int id, String firstname, String lastName, String email, String homephone, String group) {
+
+
+  public ContactData withId(int id) {
     this.id = id;
-    this.firstname = firstname;
-    this.lastName = lastName;
-    this.email = email;
-    this.homephone = homephone;
-    this.group = group;
+    return this;
   }
 
-
-  public ContactData(String firstname, String lastName, String email, String homephone, String group) {
-    this.id = Integer.MAX_VALUE;
-
+  public ContactData withFirstName(String firstname) {
     this.firstname = firstname;
-    this.lastName = lastName;
-    this.email = email;
-    this.homephone = homephone;
-    this.group = group;
+    return this;
   }
 
+  public ContactData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withHomephone(String homephone) {
+    this.homephone = homephone;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
   public String getFirstname() {
     return firstname;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   public String getLastName() {
@@ -74,13 +81,15 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
+    if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
   }
 
   @Override
   public int hashCode() {
-    int result = firstname != null ? firstname.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
   }

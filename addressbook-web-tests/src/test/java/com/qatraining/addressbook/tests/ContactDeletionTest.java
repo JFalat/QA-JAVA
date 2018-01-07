@@ -1,31 +1,31 @@
 package com.qatraining.addressbook.tests;
 
 import com.qatraining.addressbook.model.ContactData;
-import com.qatraining.addressbook.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.List;
+import java.util.Set;
 
 public class ContactDeletionTest extends TestBase {
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().homePage();
+    if (app.contact().all().size()==0) {
+      app.contact().create(new ContactData().withFirstName("Joanna").withLastName("Test").withGroup("test1"));
+    }
+  }
 
   @Test
   public void testContactDeletion() {
-    app.getNavigationHelper().gotoHomePage();
-    List<ContactData> before = app.getContactHelper().getContactList();
-
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createClient(new ContactData("Joanna", null, null, null, "test1"));
-    }
-
-    app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().deleteSelectedContact();
-    app.getContactHelper().confirmAlert();
-    app.getContactHelper().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    Set<ContactData> before = app.contact().all();
+    ContactData deletedContact=before.iterator().next();
+    app.contact().delete(deletedContact);
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(before.size() - 1);
+    before.remove(deletedContact);
     Assert.assertEquals(before, after);
   }
+
+
 }
