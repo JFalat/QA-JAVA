@@ -2,10 +2,8 @@ package com.qatraining.addressbook.tests;
 
 import com.qatraining.addressbook.model.ContactData;
 import com.qatraining.addressbook.model.Contacts;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

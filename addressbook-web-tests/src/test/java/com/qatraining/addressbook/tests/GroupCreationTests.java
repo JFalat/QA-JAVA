@@ -2,17 +2,10 @@ package com.qatraining.addressbook.tests;
 
 import com.qatraining.addressbook.model.GroupData;
 import com.qatraining.addressbook.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.security.acl.Group;
-import java.util.HashSet;
-import java.util.Set;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
 
