@@ -13,7 +13,6 @@ public class ContactData {
   private String work;
   private String address;
 
-
   public ContactData withId(int id) {
     this.id = id;
     return this;
@@ -43,12 +42,10 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withEmail3(String email3) {
     this.email3 = email3;
     return this;
   }
-
 
   public ContactData withHomephone(String homephone) {
     this.homephone = homephone;
@@ -69,6 +66,7 @@ public class ContactData {
     this.group = group;
     return this;
   }
+
   public String getFirstname() {
     return firstname;
   }
@@ -102,7 +100,6 @@ public class ContactData {
   public String getWork() {return work; }
 
   public String getAddress() { return address; }
-
 
   @Override
   public String toString() {
