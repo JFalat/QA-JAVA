@@ -137,7 +137,7 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Contacts all() {
+  public Set<ContactData> all() {
     if (contactCache != null) {
       return new Contacts(contactCache);
     }
@@ -148,12 +148,12 @@ public class ContactHelper extends HelperBase {
       String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
       String address = element.findElement(By.cssSelector("td:nth-child(4)")).getText();
-      String[] phones = element.findElement(By.cssSelector("td:nth-child(6)")).getText().split("\n");
-      String[] emails = element.findElement(By.cssSelector("td:nth-child(5)")).getText().split("\n");
+      String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
+      String allEmails = element.findElement(By.cssSelector("td:nth-child(5)")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData().withId(id).withFirstName(name).withLastName(lastName)
-              .withHomephone(phones[0]).withMobile(phones[1]).withWork(phones[2]).withAddress(address)
-              .withEmail(emails[0]).withEmail2(emails[1]).withEmail3(emails[2]);
+              .withAllPhones(allPhones).withAddress(address)
+              .withAllEmails(allEmails);
       contactCache.add(contact);
     }
     return contactCache;
