@@ -3,6 +3,8 @@ package com.qatraining.addressbook.tests;
 import com.qatraining.addressbook.model.ContactData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,17 +26,21 @@ public class ContactEmailAddressTests extends TestBase {
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    System.out.println("cont " + contactInfoFromEditForm);
-
     assertThat(contact.getAddress(), equalTo(cleanedTxt(contactInfoFromEditForm.getAddress())));
-    assertThat(contact.getEmail(), equalTo(cleanedTxt(contactInfoFromEditForm.getEmail())));
-    assertThat(contact.getEmail2(), equalTo(cleanedTxt(contactInfoFromEditForm.getEmail2())));
-    assertThat(contact.getEmail3(), equalTo(cleanedTxt(contactInfoFromEditForm.getEmail3())));
+    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+  }
+
+  private String mergeEmails(ContactData contact) {
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s) -> !s.equals(""))
+            .map(ContactEmailAddressTests::cleanedTxt)
+            .collect(Collectors.joining("\n"));
 
   }
 
-  public String cleanedTxt(String txt) {
+
+  public static String cleanedTxt(String txt) {
     return txt.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
-
 }
+

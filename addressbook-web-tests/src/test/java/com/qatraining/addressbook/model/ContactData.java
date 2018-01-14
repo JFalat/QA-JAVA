@@ -1,5 +1,7 @@
 package com.qatraining.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
   private int id= Integer.MAX_VALUE;
   private String firstname;
@@ -14,7 +16,24 @@ public class ContactData {
   private String address;
   private String allPhones;
   private String allEmails;
+  private String allDetails;
+  private File photo;
 
+
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
+  public String getAllDetails() {
+    return allDetails;
+  }
+
+  public ContactData withAllDetails(String allDetails) {
+    this.allDetails = allDetails;
+    return this;
+  }
 
   public ContactData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
@@ -117,6 +136,10 @@ public class ContactData {
 
   public String getAddress() { return address; }
 
+  public File getPhoto() {
+    return photo;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
@@ -131,6 +154,9 @@ public class ContactData {
             ", mobile='" + mobile + '\'' +
             ", work='" + work + '\'' +
             ", address='" + address + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", allEmails='" + allEmails + '\'' +
+            ", allDetails='" + allDetails + '\'' +
             '}';
   }
 

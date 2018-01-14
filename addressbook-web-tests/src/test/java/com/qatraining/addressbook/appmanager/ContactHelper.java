@@ -32,6 +32,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.getEmail());
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -162,22 +163,30 @@ public class ContactHelper extends HelperBase {
   public ContactData infoFromDetailsPage(ContactData contact) {
     selectDetailsById(contact.getId());
     ContactData contactDetails = new ContactData();
-    String[] allTekst = wd.findElement(By.xpath("//*[@id=\"content\"]")).getText().split("\n");
-    for (int i = 0; i < allTekst.length; i++) {
-    }
-    String[] names = allTekst[0].split(" ");
-    String address = allTekst[1];
-    String homePhone = allTekst[3].replaceAll("[^0-9]", "");
-    String mobilePhone = allTekst[4].replaceAll("[^0-9]", "");
-    String workPhone = allTekst[5].replaceAll("[^0-9]", "");
-    String email = allTekst[7];
-    String email2 = allTekst[8];
-    String email3 = allTekst[9];
-    String[] groups = allTekst[12].split(" ");
+//    String[] allTekst = wd.findElement(By.xpath("//*[@id=\"content\"]")).getText().split("\n");
 
+    String allTekst = wd.findElement(By.xpath("//*[@id=\"content\"]")).getText();
 
-    contactDetails.withFirstName(names[0]).withLastName(names[1]).withAddress(address).withHomephone(homePhone).withMobile(mobilePhone)
-            .withWork(workPhone).withEmail(email).withEmail2(email2).withEmail3(email3).withGroup(groups[2]);
+//    for (int i = 0; i < allTekst.length; i++) {
+//     // System.out.println(allTekst[i]);
+//    }
+
+//    String[] names = allTekst[0].split(" ");
+//    String address = allTekst[1];
+//    String homePhone = allTekst[3].replaceAll("[^0-9]", "");
+//    String mobilePhone = allTekst[4].replaceAll("[^0-9]", "");
+//    String workPhone = allTekst[5].replaceAll("[^0-9]", "");
+//    String email = allTekst[7];
+//    String email2 = allTekst[8];
+//    String email3 = allTekst[9];
+//    String[] groups = allTekst[12].split(" ");
+
+//    System.out.println("mob: " + mobilePhone);
+
+//    contactDetails.withFirstName(names[0]).withLastName(names[1]).withAddress(address).withHomephone(homePhone).withMobile(mobilePhone)
+//            .withWork(workPhone).withEmail(email).withEmail2(email2).withEmail3(email3).withGroup(groups[2]);
+
+    contactDetails.withAllDetails(allTekst);
 
     wd.navigate().back();
     return contactDetails;

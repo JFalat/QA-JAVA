@@ -10,6 +10,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDetailsTest extends TestBase {
 
+
+
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
@@ -23,21 +25,50 @@ public class ContactDetailsTest extends TestBase {
   public void testDetails() {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     ContactData contactInfoFromDetailsPage = app.contact().infoFromDetailsPage(contact);
-
-    assertThat(contact.getFirstname(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getFirstname())));
-    assertThat(contact.getLastName(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getLastName())));
-    assertThat(contact.getMobile(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getMobile())));
-    assertThat(contact.getWork(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getWork())));
-    assertThat(contact.getAddress(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getAddress())));
-    assertThat(contact.getEmail(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getEmail())));
-    assertThat(contact.getEmail2(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getEmail2())));
-    assertThat(contact.getEmail3(), equalTo(cleanedTxt(contactInfoFromDetailsPage.getEmail3())));
-
+    assertThat(mergeAll(contactInfoFromEditForm), equalTo(contactInfoFromDetailsPage.getAllDetails()));
   }
 
-  public String cleanedTxt(String txt) {
-    return txt.replaceAll("\\s", "").replaceAll("[-()]", "");
+  private String mergeAll(ContactData contact) {
+    String result = "";
+    if (contact.getFirstname() != null) {
+      result = result + contact.getFirstname();
+    }
+    if (contact.getLastName() != null) {
+      result = result + " " + contact.getLastName();
+    }
+    if (contact.getAddress() != null) {
+      result = result + "\n\n" + contact.getAddress();
+    }
+    if (contact.getHomephone() != null || contact.getMobile() != null || contact.getWork() != null) {
+      result = result + "\n";
+      if (contact.getHomephone() != null) {
+        result = result + "\n" + "H: " + contact.getHomephone();
+      }
+      if (contact.getMobile() != null) {
+        result = result + "\n" + "M: " + contact.getMobile();
+      }
+      if (contact.getWork() != null) {
+        result = result + "\n" + "W: " + contact.getWork();
+      }
+    }
+
+    if (contact.getEmail() != null || contact.getEmail2() != null || contact.getEmail3() != null) {
+      result = result + "\n";
+    }
+    if (contact.getEmail() != null) {
+      result = result + "\n" + (contact.getEmail());
+    }
+    if (contact.getEmail2() != null) {
+      result = result + "\n" + contact.getEmail2();
+    }
+    if (contact.getEmail3() != null) {
+      result = result + "\n" + contact.getEmail3();
+    }
+
+    return result;
+
   }
 
 }

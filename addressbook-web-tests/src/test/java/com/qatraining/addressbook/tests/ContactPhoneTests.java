@@ -13,7 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactPhoneTests extends TestBase {
 
 
-
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
@@ -36,11 +35,11 @@ public class ContactPhoneTests extends TestBase {
             .stream().filter((s) -> !s.equals(""))
             .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
-
   }
+
   public static String cleaned(String phone) {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
 
   }
-  }
+}
 
