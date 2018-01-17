@@ -138,12 +138,12 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Set<ContactData> all() {
-    if (contactCache != null) {
-      return new Contacts(contactCache);
-    }
+  public Contacts all() {
+//    if (contactCache != null) {
+//      return new Contacts(contactCache);
+//    }
     contactCache = new Contacts();
-    Set<ContactData> contacts = new HashSet<ContactData>();
+    //Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
@@ -157,7 +157,7 @@ public class ContactHelper extends HelperBase {
               .withAllEmails(allEmails);
       contactCache.add(contact);
     }
-    return contactCache;
+    return new Contacts(contactCache);
   }
 
   public ContactData infoFromDetailsPage(ContactData contact) {
