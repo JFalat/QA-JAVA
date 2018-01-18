@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.XStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ContactDataGenerator {
 
@@ -25,7 +26,9 @@ public class ContactDataGenerator {
   @Parameter(names = "-d", description = "Data format")
   public String format;
 
+
   public static void main(String[] args) throws IOException {
+
     ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
     try {
@@ -43,7 +46,7 @@ public class ContactDataGenerator {
       saveAsCsv(contacts, new File(file));
     } else if (format.equals("xml")) {
       saveAsXML(contacts, new File(file));
-    }else if (format.equals("json")){
+    } else if (format.equals("json")) {
       saveAsJson(contacts, new File(file));
     } else {
       System.out.println("Unrecognized format" + format);
@@ -51,9 +54,9 @@ public class ContactDataGenerator {
   }
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
-    Gson gson=new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-    String json=gson.toJson(contacts);
-    try (Writer writer=new FileWriter(file)) {
+    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    String json = gson.toJson(contacts);
+    try (Writer writer = new FileWriter(file)) {
       writer.write(json);
     }
   }
@@ -62,7 +65,7 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    try(Writer writer = new FileWriter(file)) {
+    try (Writer writer = new FileWriter(file)) {
       writer.write(xml);
     }
   }
@@ -85,12 +88,12 @@ public class ContactDataGenerator {
 
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstName(String.format("FirstName %s", i))
-              .withLastName(String.format("LastName %s", i)).withAddress(String.format("Address %s", i)).withGroup(groups.get(0).getName()));
+              .withLastName(String.format("LastName %s", i)).withAddress(String.format("Address %s", i)));
     }
     return contacts;
   }
 
- public List<GroupData> getGroups() throws IOException {
+  public List<GroupData> getGroups() throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
     String xml = "";
     String line = reader.readLine();
@@ -100,7 +103,7 @@ public class ContactDataGenerator {
     }
     XStream xstream = new XStream();
     xstream.processAnnotations(GroupData.class);
-   List<GroupData> groups = new ArrayList<>();
+    List<GroupData> groups = new ArrayList<>();
     return groups = (List<GroupData>) xstream.fromXML(xml);
   }
 }

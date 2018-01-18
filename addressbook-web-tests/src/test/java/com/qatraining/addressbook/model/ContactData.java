@@ -18,7 +18,6 @@ public class ContactData {
   private String email2;
   private String email3;
   private String homephone;
-  @Expose
   private String group;
   private String mobile;
   private String work;
