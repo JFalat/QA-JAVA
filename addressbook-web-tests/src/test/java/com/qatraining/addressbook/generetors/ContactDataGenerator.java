@@ -83,8 +83,8 @@ public class ContactDataGenerator {
   private List<ContactData> generateContacts(int count) throws IOException {
     List<ContactData> contacts = new ArrayList<ContactData>();
 
-    List<GroupData> groups = new ArrayList<>();
-    groups = getGroups();
+//    List<GroupData> groups = new ArrayList<>();
+//    groups = getGroups();
 
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstName(String.format("FirstName %s", i))
@@ -93,17 +93,17 @@ public class ContactDataGenerator {
     return contacts;
   }
 
-  public List<GroupData> getGroups() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
-    String xml = "";
-    String line = reader.readLine();
-    while (line != null) {
-      xml += line;
-      line = reader.readLine();
-    }
-    XStream xstream = new XStream();
-    xstream.processAnnotations(GroupData.class);
-    List<GroupData> groups = new ArrayList<>();
-    return groups = (List<GroupData>) xstream.fromXML(xml);
-  }
+//  public List<GroupData> getGroups() throws IOException {
+//    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
+//    String xml = "";
+//    String line = reader.readLine();
+//    while (line != null) {
+//      xml += line;
+//      line = reader.readLine();
+//    }
+//    XStream xstream = new XStream();
+//    xstream.processAnnotations(GroupData.class);
+//    List<GroupData> groups = new ArrayList<>();
+//    return groups = (List<GroupData>) xstream.fromXML(xml);
+//  }
 }

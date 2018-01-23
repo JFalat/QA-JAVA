@@ -1,6 +1,7 @@
 package com.qatraining.addressbook.tests;
 
 import com.qatraining.addressbook.model.ContactData;
+import com.qatraining.addressbook.model.Contacts;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,19 +16,20 @@ public class ContactDeletionTest extends TestBase {
   public void ensurePreconditions() {
     app.goTo().homePage();
     if (app.contact().all().size()==0) {
-      app.contact().create(new ContactData().withFirstName("Joanna").withLastName("Test").withGroup("test1"));
+      app.contact().create(new ContactData().withFirstName("Joanna").withLastName("Test").withAddress("address"));
     }
   }
 
   @Test
   public void testContactDeletion() {
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedContact=before.iterator().next();
     app.contact().delete(deletedContact);
     assertThat(app.contact().count(),equalTo(before.size()-1));
-    Set<ContactData> after = app.contact().all();
-//    assertThat(after,equalTo(before.without(deletedContact)));
+    Contacts after = app.db().contacts();
+    assertThat(after,equalTo(before.without(deletedContact)));
   }
+
 
 
 }
