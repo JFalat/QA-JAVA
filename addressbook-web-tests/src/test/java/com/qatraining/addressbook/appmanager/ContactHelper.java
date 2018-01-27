@@ -2,6 +2,7 @@ package com.qatraining.addressbook.appmanager;
 
 import com.qatraining.addressbook.model.ContactData;
 import com.qatraining.addressbook.model.Contacts;
+import com.qatraining.addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,11 +36,12 @@ public class ContactHelper extends HelperBase {
 //    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
-      if (contactData.getGroup()!=null) {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+      } else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
 
@@ -49,6 +51,11 @@ public class ContactHelper extends HelperBase {
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public int selectContactAndReturnID(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
+    return Integer.parseInt(wd.findElements(By.name("selected[]")).get(index).getAttribute("id"));
   }
 
   private void selectContactById(int id) {
@@ -141,9 +148,9 @@ public class ContactHelper extends HelperBase {
   }
 
   public Contacts all() {
-//    if (contactCache != null) {
-//      return new Contacts(contactCache);
-//    }
+// if (contactCache != null) {
+//return new Contacts(contactCache);
+//  }
     contactCache = new Contacts();
     //Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
@@ -210,6 +217,33 @@ public class ContactHelper extends HelperBase {
             .withEmail(email).withEmail2(email2).withEmail3(email3)
             .withHomephone(home).withMobile(mobile).withWork(work).withAddress(address);
   }
+
+  public List<GroupData> groupList() {
+    List<GroupData> groups = new ArrayList<GroupData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"content\"]/form[2]/div[4]/select/option"));
+    for (WebElement element : elements) {
+      String name = element.getText();
+      int id = Integer.parseInt(element.getAttribute("value"));
+      GroupData group = new GroupData().withId(id).withName(name);
+      groups.add(group);
+    }
+    return groups;
+  }
+
+
+  public void click(By locator) {
+    wd.findElement(locator).click();
+  }
+
+
+  public void selectGroupAdd(String name) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(name);
+  }
+
+  public void selectGroupRemove(String name) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(name);
+  }
+
 }
 
 

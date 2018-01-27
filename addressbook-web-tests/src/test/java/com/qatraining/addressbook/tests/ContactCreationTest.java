@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.qatraining.addressbook.model.ContactData;
 import com.qatraining.addressbook.model.Contacts;
+import com.qatraining.addressbook.model.GroupData;
+import com.qatraining.addressbook.model.Groups;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -20,6 +23,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTest extends TestBase {
+
+  @BeforeMethod
+
+  public void ensurePreconditions(){
+    if (app.db().groups().size()==0){
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+  }
 
   @DataProvider
   public Iterator<Object[]>validContactsfromXML()throws IOException {
@@ -55,15 +67,18 @@ public class ContactCreationTest extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
+    Groups groups=app.db().groups();
     app.goTo().homePage();
     Contacts before=app.db().contacts();
         File photo=new File("src/test/resources/stru.png");
-    contact.withPhoto(photo);
+    contact.withPhoto(photo).inGroup(groups.iterator().next());
+
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after=app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) ->g.getId()).max().getAsInt()))));
+    verifyContactListinUI();
 
   }
 

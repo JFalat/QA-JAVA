@@ -28,6 +28,7 @@ public class ContactDetailsTest extends TestBase {
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     ContactData contactInfoFromDetailsPage = app.contact().infoFromDetailsPage(contact);
 //   assertThat(mergeAll(contactInfoFromEditForm), equalTo(contactInfoFromDetailsPage.getAllDetails()));
+    verifyContactListinUI();
   }
 
   private String mergeAll(ContactData contact) {

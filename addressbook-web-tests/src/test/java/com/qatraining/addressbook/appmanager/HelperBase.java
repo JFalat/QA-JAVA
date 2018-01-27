@@ -61,11 +61,11 @@ public class HelperBase {
   }
 
 //  It's needed for testing my code
-//  public void testWait()  {
-//    try {
-//      Thread.sleep(5000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
-//  }
+  public void testWait()  {
+    try {
+      Thread.sleep(5000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }
