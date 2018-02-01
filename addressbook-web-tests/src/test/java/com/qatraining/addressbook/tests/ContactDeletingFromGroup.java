@@ -52,7 +52,7 @@ public class ContactDeletingFromGroup extends TestBase{
   public void testContactDeletingFromGroup() {
     app.goTo().homePage();
     Groups groups=app.db().groups();
-    
+
     contactRemoval(groups.size());
   }
 
