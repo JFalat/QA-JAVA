@@ -1,5 +1,6 @@
 package com.qatraining.mantis.appmanager;
 
+import com.qatraining.mantis.model.SoapHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -22,6 +23,8 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private ChangePasswordHelper changePasswordHelper;
+//  private JamesHelper jamesHelper;
+  private SoapHelper soapHelper;
 
 
   public ApplicationManager(String browser) {
@@ -90,6 +93,19 @@ public class ApplicationManager {
     }
     return changePasswordHelper;
   }
+
+//  public JamesHelper james() {
+//    if (jamesHelper == null) {
+//      jamesHelper = new JamesHelper(this);
+//    }
+//    return jamesHelper;
+//  }
+public SoapHelper soap() {
+  if (soapHelper == null) {
+    soapHelper = new SoapHelper(this);
+  }
+  return soapHelper;
+}
 
 }
 
